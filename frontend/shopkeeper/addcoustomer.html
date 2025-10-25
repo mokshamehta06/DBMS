@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="addCustomer" class="tab-content">
+                    <h3>Add Customer</h3>
+                    <form onsubmit="handleAddCustomer(event)">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" id="customerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" id="customerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone:</label>
+                            <input type="tel" id="customerPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Address:</label>
+                            <textarea id="customerAddress" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Add Customer</button>
+                    </form>
+                </div>
+
+</body>
+<script src="script.js"></script>
+
+</html>    

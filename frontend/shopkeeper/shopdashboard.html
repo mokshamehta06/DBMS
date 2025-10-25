@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopkeeper Dashboard - GST Billing</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div id="shopkeeperDashboard" class="page active">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-brand">🏪 Shopkeeper Dashboard</div>
+            <div class="navbar-user">
+                <span id="shopkeeperUsername">Shop</span>
+                <button class="btn-logout" onclick="logout()">Logout</button>
+            </div>
+        </nav>
+
+        <!-- Main Container -->
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <ul class="nav-menu">
+                    <li><a href="#" onclick="showTab('generateBill', event)" class="nav-item active">📄 Generate Bill</a></li>
+                    <li><a href="#" onclick="showTab('addCustomer', event)" class="nav-item">👤 Add Customer</a></li>
+                    <li><a href="#" onclick="showTab('viewCustomers', event)" class="nav-item">👥 View Customers</a></li>
+                    <li><a href="#" onclick="showTab('inventory', event)" class="nav-item">📦 Inventory</a></li>
+                    <li><a href="#" onclick="showTab('salesReport', event)" class="nav-item">📊 Sales Report</a></li>
+                    <li><a href="#" onclick="showTab('purchaseHistory', event)" class="nav-item">📋 Purchase History</a></li>
+                    <li><a href="#" onclick="showTab('profile', event)" class="nav-item">⚙️ Profile Settings</a></li>
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <div class="alerts-container"></div>
+
+                <!-- Generate Bill Tab -->
+                <div id="generateBill" class="tab-content active">
+                    <h3>Generate Bill</h3>
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label>Customer:</label>
+                            <select id="customerSelect">
+                                <option value="">Select Customer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Date:</label>
+                            <input type="date" id="billDate">
+                        </div>
+                        <button class="btn-secondary" onclick="addBillItem()">+ Add Item</button>
+                    </div>
+                    <div id="billItems" class="bill-items"></div>
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label>Discount (%):</label>
+                            <input type="number" id="discountPercent" value="0" min="0" max="100">
+                        </div>
+                        <button class="btn-primary" onclick="generateBill()">Generate Bill</button>
+                    </div>
+                    <div id="billPreview" class="bill-preview"></div>
+                </div>
+
+                <!-- Add Customer Tab -->
+                <div id="addCustomer" class="tab-content">
+                    <h3>Add New Customer</h3>
+                    <div class="form-section">
+                        <form id="customerForm" onsubmit="handleAddCustomer(event)">
+                            <div class="form-group">
+                                <label>Customer Name:</label>
+                                <input type="text" id="customerName" placeholder="Enter customer name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="email" id="customerEmail" placeholder="Enter email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone:</label>
+                                <input type="tel" id="customerPhone" placeholder="Enter phone number" required>
+                            </div>
+                            <div class="form-group">
+                                <label>GST Number:</label>
+                                <input type="text" id="customerGST" placeholder="Enter GST number (optional)">
+                            </div>
+                            <div class="form-group">
+                                <label>Address:</label>
+                                <textarea id="customerAddress" placeholder="Enter address" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">Add Customer</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- View Customers Tab -->
+                <div id="viewCustomers" class="tab-content">
+                    <h3>Customers</h3>
+                    <div class="table-container">
+                        <table id="customersTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>GST Number</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customersTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Inventory Tab -->
+                <div id="inventory" class="tab-content">
+                    <h3>Inventory Management</h3>
+                    <div class="form-section">
+                        <form id="inventoryForm" onsubmit="handleAddInventory(event)">
+                            <div class="form-group">
+                                <label>Product Name:</label>
+                                <input type="text" id="productName" placeholder="Enter product name" required>
+                            
+                            <div class="form-group">
+                                <label>Price:</label>
+                                <input type="number" id="productPrice" placeholder="Enter price" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Quantity:</label>
+                                <input type="number" id="productQuantity" placeholder="Enter quantity" required>
+                            </div>
+                            <div class="form-group">
+                               <label for="productGST">GST Rate (%):</label>
+<input type="number" id="productGST" name="productGST" placeholder="Enter GST rate" min="0" max="100" step="0.01">
+
+                            </div>
+                            <button type="submit" class="btn-primary">Add Product</button>
+                        </form>
+                    </div>
+                    <div class="table-container">
+                        <table id="inventoryTable">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                  
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>GST</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventoryTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Sales Report Tab -->
+                <div id="salesReport" class="tab-content">
+                    <h3>Sales Report</h3>
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label>From Date:</label>
+                            <input type="date" id="reportFromDate">
+                        </div>
+                        <div class="form-group">
+                            <label>To Date:</label>
+                            <input type="date" id="reportToDate">
+                        </div>
+                        <button class="btn-secondary" onclick="generateSalesReport()">Generate Report</button>
+                        <button class="btn-secondary" onclick="exportSalesReport()">Export CSV</button>
+                    </div>
+                    <div id="reportContainer"></div>
+                </div>
+
+                <!-- Purchase History Tab -->
+                <div id="purchaseHistory" class="tab-content">
+                    <h3>Purchase History</h3>
+                    <div class="table-container">
+                        <table id="purchaseTable">
+                            <thead>
+                                <tr>
+                                    <th>Bill ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>GST</th>
+                                    <th>Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="purchaseTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Profile Settings Tab -->
+                <div id="profile" class="tab-content">
+                    <h3>Profile Settings</h3>
+                    <div class="form-section">
+                        <form id="profileForm" onsubmit="handleProfileUpdate(event)">
+                            <div class="form-group">
+                                <label>Shop Name:</label>
+                                <input type="text" id="profileShopName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="email" id="profileEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label>GST Number:</label>
+                                <input type="text" id="profileGST" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone:</label>
+                                <input type="tel" id="profilePhone">
+                            </div>
+                            <div class="form-group">
+                                <label>Address:</label>
+                                <textarea id="profileAddress" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">Update Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="js/shopkeeper-dashboard.js"></script>
+</body>
+</html>
+

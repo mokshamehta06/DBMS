@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Billing System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landingPage" class="page active">
+        <div class="landing-container">
+            <div class="landing-content">
+                <h1 class="landing-title">GST Billing System</h1>
+                <p class="landing-subtitle">Professional billing solution for your business</p>
+
+                <div class="role-buttons">
+                    <button class="role-btn shopkeeper-btn" onclick="selectRole('shopkeeper')">
+                        <span class="role-icon">🏪</span>
+                        <span class="role-text">Shopkeeper</span>
+                    </button>
+                    <button class="role-btn supplier-btn" onclick="selectRole('supplier')">
+                        <span class="role-icon">📦</span>
+                        <span class="role-text">Supplier</span>
+                    </button>
+                </div>
+
+                <div class="features-section">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Easy Billing</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">GST Compliant</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Real-time Reports</span>
+                    </div>
+                </div>
+            </div>
+            <div class="floating-circle circle-1"></div>
+            <div class="floating-circle circle-2"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
